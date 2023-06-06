@@ -1,7 +1,16 @@
 {
-  "name": "Aurora-MulPay",
+  "name": "aurora-mulpay",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "private": true
+  "description": "Token swap dapp",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "contract": "yarn workspace contract",
+    "client": "yarn workspace client",
+    "test": "yarn workspace contract test"
+  }
 }
