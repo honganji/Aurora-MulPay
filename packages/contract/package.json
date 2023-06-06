@@ -26,8 +26,10 @@
     "@openzeppelin/contracts": "^4.8.2",
     "dotenv": "^16.0.3"
   },
-  "scripts":{
-    "deploy":"npx hardhat run scripts/deploy.ts --network testnet_aurora",
-    "test": "npx hardhat test"
+  "scripts": {
+    "deploy": "npx hardhat run scripts/deploy.ts --network testnet_aurora",
+    "test": "npx hardhat test",
+    "solhint": "solhint --max-error 0 -c ./.solhint.json \"contracts/*.sol\"",
+    "solhint:fix": "solhint --fix --max-error 0 -c ./.solhint.json \"contracts/*.sol\""
   }
 }
