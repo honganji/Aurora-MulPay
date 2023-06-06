@@ -1,0 +1,17 @@
+node_modules
+.openzeppelin
+.vscode
+
+artifacts
+cache
+coverage*
+
+gasReporterOutput.json
+smartcontracts
+linux
+ios
+build
+windows
+.dart_tool
+analysis_options.yaml
+macos
