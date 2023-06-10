@@ -12,6 +12,7 @@ import 'package:client/view/widgets/qr_code.dart';
 import 'package:client/view/widgets/navbar.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:web3dart/credentials.dart';
 
 class Wallet extends StatefulWidget {
@@ -31,7 +32,8 @@ class _WalletState extends State<Wallet> {
     final displayHeight = MediaQuery.of(context).size.height;
     final displayWidth = MediaQuery.of(context).size.width;
     var provider = Provider.of<BottomNavigationBarProvider>(context);
-    var contractModel = Provider.of<ContractModel>(context, listen: true);
+    final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
+    // var contractModel = Provider.of<ContractModel>(context, listen: true);
 
     return Scaffold(
       body: SafeArea(
@@ -40,7 +42,8 @@ class _WalletState extends State<Wallet> {
           child: Column(
             children: [
               SizedBox(
-                height: displayHeight * 0.04,
+                height:
+                    isDeskTop ? (displayHeight * 0.01) : (displayHeight * 0.04),
               ),
               SizedBox(
                 height: displayHeight * 0.05,
@@ -48,7 +51,9 @@ class _WalletState extends State<Wallet> {
                   children: [
                     Text(
                       'Wallet',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: isDeskTop
+                          ? TextStyle(fontSize: 40)
+                          : (Theme.of(context).textTheme.headlineSmall),
                     ),
                   ],
                 ),
@@ -80,12 +85,15 @@ class _WalletState extends State<Wallet> {
                           Text(
                             "wallet address",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                              fontWeight: FontWeight.bold,
+                              fontSize: isDeskTop ? 27 : 17,
+                            ),
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 1),
                             child: Text(
-                              contractModel.account,
+                              "4234324234",
+                              // contractModel.account,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -106,7 +114,7 @@ class _WalletState extends State<Wallet> {
                           context: context,
                           builder: (_) => QRCode(
                               qrImage: QrImage(
-                            data: contractModel.account,
+                            data: "2342432424",
                             size: 200,
                           )),
                         );
@@ -122,11 +130,11 @@ class _WalletState extends State<Wallet> {
                               color: Colors.grey,
                             ),
                           ),
-                          const Text(
+                          Text(
                             ' display QR code',
                             style: TextStyle(
                               color: Colors.grey,
-                              fontSize: 12,
+                              fontSize: isDeskTop ? 24 : 12,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -153,7 +161,7 @@ class _WalletState extends State<Wallet> {
                                     "Select coin and push the right button",
                                     style: GoogleFonts.roboto(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 17,
+                                      fontSize: isDeskTop ? 30 : 17,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -191,8 +199,8 @@ class _WalletState extends State<Wallet> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   SizedBox(
-                                                    height: 50,
-                                                    width: 50,
+                                                    height: isDeskTop ? 80 : 50,
+                                                    width: isDeskTop ? 80 : 50,
                                                     child: Image.asset(
                                                         dropdownValue
                                                             .imagePath),
@@ -221,7 +229,8 @@ class _WalletState extends State<Wallet> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: Colors.black,
-                                                      fontSize: 14,
+                                                      fontSize:
+                                                          isDeskTop ? 28 : 14,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -230,10 +239,12 @@ class _WalletState extends State<Wallet> {
                                                   Text(
                                                     dropdownValue.name,
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.grey,
-                                                        fontSize: 12),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey,
+                                                      fontSize:
+                                                          isDeskTop ? 24 : 12,
+                                                    ),
                                                   ),
                                                   SizedBox(
                                                     height: 20,
@@ -245,8 +256,8 @@ class _WalletState extends State<Wallet> {
                                               width: 10,
                                             ),
                                             SizedBox(
-                                              height: displayHeight * 0.12,
-                                              width: 20,
+                                              height: isDeskTop ? 40 : 20,
+                                              width: isDeskTop ? 40 : 20,
                                               child: SvgPicture.asset(
                                                 "assets/triangle.svg",
                                                 color: HexColor("#628A8A"),
@@ -297,25 +308,25 @@ class _WalletState extends State<Wallet> {
                                       width: displayWidth * 0.37,
                                       child: ElevatedButton(
                                         onPressed: () async {
-                                          await contractModel.sendTransaction(
-                                            dotenv.env["SWAP_CONTRACT_NAME"]!,
-                                            dotenv
-                                                .env["SWAP_CONTRACT_ADDRESS"]!,
-                                            "distributeToken",
-                                            [
-                                              EthereumAddress.fromHex(
-                                                  dropdownValue.address),
-                                              BigInt.from(100),
-                                              EthereumAddress.fromHex(
-                                                  contractModel.account),
-                                            ],
-                                          );
+                                          // await contractModel.sendTransaction(
+                                          //   dotenv.env["SWAP_CONTRACT_NAME"]!,
+                                          //   dotenv
+                                          //       .env["SWAP_CONTRACT_ADDRESS"]!,
+                                          //   "distributeToken",
+                                          //   [
+                                          //     EthereumAddress.fromHex(
+                                          //         dropdownValue.address),
+                                          //     BigInt.from(100),
+                                          //     EthereumAddress.fromHex(
+                                          //         contractModel.account),
+                                          //   ],
+                                          // );
                                         },
                                         child: Text(
                                           'Get 100 ${dropdownValue.symbol}!',
                                           style: GoogleFonts.patuaOne(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 18,
+                                            fontSize: isDeskTop ? 34 : 18,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -329,7 +340,9 @@ class _WalletState extends State<Wallet> {
                           Container(
                             child: SizedBox(
                               height: displayHeight * 0.1,
-                              width: displayWidth * 0.7,
+                              width: isDeskTop
+                                  ? (displayWidth * 0.9)
+                                  : (displayWidth * 0.7),
                               child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushReplacementNamed(

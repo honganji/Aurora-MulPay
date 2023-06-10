@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:client/view/screens/qr_code_scan.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../model/contract_model.dart';
 
@@ -32,6 +33,7 @@ class _SendState extends State<Send> {
     final displayHeight = MediaQuery.of(context).size.height;
     final displayWidth = MediaQuery.of(context).size.width;
     var contractModel = Provider.of<ContractModel>(context, listen: true);
+    final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
 
     return Scaffold(
       body: SafeArea(
@@ -40,15 +42,19 @@ class _SendState extends State<Send> {
           child: Column(
             children: [
               SizedBox(
-                height: displayHeight * 0.04,
+                height:
+                    isDeskTop ? (displayHeight * 0.01) : (displayHeight * 0.04),
               ),
               SizedBox(
-                height: displayHeight * 0.04,
+                height:
+                    isDeskTop ? (displayHeight * 0.06) : (displayHeight * 0.04),
                 child: Row(
                   children: [
                     Text(
                       'Send',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: isDeskTop
+                          ? TextStyle(fontSize: 50)
+                          : (Theme.of(context).textTheme.headlineSmall),
                     ),
                   ],
                 ),
@@ -73,7 +79,7 @@ class _SendState extends State<Send> {
                                   "①Input receiver's wallet address",
                                   style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 17,
+                                    fontSize: isDeskTop ? 30 : 17,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -143,11 +149,11 @@ class _SendState extends State<Send> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  const Text(
+                                  Text(
                                     ' scan QR code',
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 12,
+                                      fontSize: isDeskTop ? 20 : 12,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -166,7 +172,7 @@ class _SendState extends State<Send> {
                                   "②Select coin you want to transfer \n and input amount",
                                   style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 17,
+                                    fontSize: isDeskTop ? 30 : 17,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -204,8 +210,8 @@ class _SendState extends State<Send> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 SizedBox(
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: isDeskTop ? 80 : 50,
+                                                  width: isDeskTop ? 80 : 50,
                                                   child: Image.asset(
                                                       dropdownValueOfSecond
                                                           .imagePath),
@@ -233,7 +239,8 @@ class _SendState extends State<Send> {
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.black,
-                                                    fontSize: 14,
+                                                    fontSize:
+                                                        isDeskTop ? 28 : 14,
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -242,10 +249,11 @@ class _SendState extends State<Send> {
                                                 Text(
                                                   dropdownValueOfSecond.name,
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.grey,
-                                                      fontSize: 12),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey,
+                                                    fontSize:
+                                                        isDeskTop ? 24 : 12,
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   height: 20,
@@ -257,8 +265,7 @@ class _SendState extends State<Send> {
                                             width: 10,
                                           ),
                                           SizedBox(
-                                            height: displayHeight * 0.12,
-                                            width: 20,
+                                            width: isDeskTop ? 40 : 20,
                                             child: SvgPicture.asset(
                                               "assets/triangle.svg",
                                               color: HexColor("#628A8A"),
@@ -316,7 +323,9 @@ class _SendState extends State<Send> {
                                         margin: EdgeInsets.symmetric(
                                             horizontal: 15,
                                             vertical: displayHeight * 0.026),
-                                        width: displayWidth * 0.12,
+                                        width: isDeskTop
+                                            ? (displayWidth * 0.24)
+                                            : (displayWidth * 0.12),
                                         color: Colors.white,
                                         child: TextFormField(
                                           decoration: InputDecoration(
@@ -353,7 +362,7 @@ class _SendState extends State<Send> {
                                             Text(
                                               dropdownValueOfSecond.symbol,
                                               style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: isDeskTop ? 32 : 20,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -379,7 +388,7 @@ class _SendState extends State<Send> {
                                   "③Select coin recipient want",
                                   style: GoogleFonts.roboto(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 17,
+                                    fontSize: isDeskTop ? 30 : 17,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -415,8 +424,8 @@ class _SendState extends State<Send> {
                                               MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
-                                              height: 50,
-                                              width: 50,
+                                              height: isDeskTop ? 80 : 50,
+                                              width: isDeskTop ? 80 : 50,
                                               child: Image.asset(
                                                   dropdownValueOfThird
                                                       .imagePath),
@@ -444,7 +453,7 @@ class _SendState extends State<Send> {
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
-                                                fontSize: 14,
+                                                fontSize: isDeskTop ? 28 : 14,
                                               ),
                                             ),
                                             SizedBox(
@@ -453,9 +462,10 @@ class _SendState extends State<Send> {
                                             Text(
                                               dropdownValueOfThird.name,
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey,
-                                                  fontSize: 12),
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey,
+                                                fontSize: isDeskTop ? 24 : 12,
+                                              ),
                                             ),
                                             SizedBox(
                                               height: 20,
@@ -467,8 +477,8 @@ class _SendState extends State<Send> {
                                         width: 70,
                                       ),
                                       SizedBox(
-                                        height: displayHeight * 0.12,
-                                        width: 20,
+                                        height: isDeskTop ? 40 : 20,
+                                        width: isDeskTop ? 40 : 20,
                                         child: SvgPicture.asset(
                                           "assets/triangle.svg",
                                           color: HexColor("#628A8A"),
@@ -514,7 +524,9 @@ class _SendState extends State<Send> {
                           margin: EdgeInsets.only(bottom: displayHeight * 0.02),
                           child: SizedBox(
                             height: displayHeight * 0.1,
-                            width: displayWidth * 0.7,
+                            width: isDeskTop
+                                ? (displayWidth * 0.8)
+                                : (displayWidth * 0.7),
                             child: ElevatedButton(
                               onPressed: () async {
                                 await contractModel.sendToken(
