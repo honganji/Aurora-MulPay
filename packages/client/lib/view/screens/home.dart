@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayHeight = MediaQuery.of(context).size.height;
     final displayWidth = MediaQuery.of(context).size.width;
-    // var contractModel = Provider.of<ContractModel>(context, listen: true);
+    var contractModel = Provider.of<ContractModel>(context, listen: true);
     final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
 
     return Scaffold(
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
                       child: Text(
                         'Home',
                         style: isDeskTop
-                            ? TextStyle(fontSize: 50)
+                            ? const TextStyle(fontSize: 50)
                             : (Theme.of(context).textTheme.headlineSmall),
                       ),
                     ),
@@ -87,27 +87,27 @@ class Home extends StatelessWidget {
                                     "Balance",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: isDeskTop ? 30 : 13,
+                                      fontSize: isDeskTop ? 35 : 13,
                                     ),
                                   ),
-                                  // FutureBuilder(
-                                  //     future: contractModel.getTotalBalance(),
-                                  //     builder: (context, snapshot) {
-                                  //       if (snapshot.hasData) {
-                                  //         return Text(
-                                  //           "${(snapshot.data.toString())} ETH",
-                                  //           style: TextStyle(
-                                  //               color: Colors.white,
-                                  //               fontSize: 14,
-                                  //               fontWeight: FontWeight.bold),
-                                  //         );
-                                  //       } else {
-                                  //         return Center(
-                                  //           child: CircularProgressIndicator
-                                  //               .adaptive(),
-                                  //         );
-                                  //       }
-                                  //     })
+                                  FutureBuilder(
+                                      future: contractModel.getTotalBalance(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Text(
+                                            "${(snapshot.data.toString())} ETH",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: isDeskTop ? 28 : 13,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator
+                                                .adaptive(),
+                                          );
+                                        }
+                                      })
                                 ],
                               ),
                               const Spacer(),
@@ -136,11 +136,10 @@ class Home extends StatelessWidget {
                                   SizedBox(
                                     width: displayWidth * 0.2,
                                     child: Text(
-                                      // contractModel.account,
-                                      "023i40931049021",
+                                      contractModel.account,
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: isDeskTop ? 25 : 13,
+                                        fontSize: isDeskTop ? 28 : 13,
                                         fontWeight: FontWeight.w600,
                                       ),
                                       overflow: TextOverflow.ellipsis,
@@ -153,7 +152,7 @@ class Home extends StatelessWidget {
                                         context: context,
                                         builder: (_) => QRCode(
                                             qrImage: QrImage(
-                                          data: "10293023",
+                                          data: contractModel.account,
                                           size: 200,
                                         )),
                                       );
@@ -174,7 +173,7 @@ class Home extends StatelessWidget {
                                           ' display QR code',
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: isDeskTop ? 23 : 12,
+                                            fontSize: isDeskTop ? 25 : 12,
                                             fontWeight: FontWeight.w600,
                                           ),
                                         ),
@@ -202,15 +201,32 @@ class Home extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Coins(
-                        displayWidth,
-                        displayHeight,
-                        "assets/polygon-matic-logo.png",
-                        "AOA",
-                        "Aurora",
-                        10,
-                        10,
-                        isDeskTop)
+                    Expanded(
+                      child: FutureBuilder(
+                        future: contractModel.getTokensInfo(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var coinsList = contractModel.tokenList;
+                            return ListView.builder(
+                                itemCount: coinsList.length,
+                                itemBuilder: (context, index) {
+                                  return Coins(
+                                      displayWidth,
+                                      displayHeight,
+                                      coinsList[index].imagePath,
+                                      coinsList[index].symbol,
+                                      coinsList[index].name,
+                                      coinsList[index].balance,
+                                      (coinsList[index].ethBalance),
+                                      isDeskTop);
+                                });
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator.adaptive());
+                          }
+                        },
+                      ),
+                    )
                   ],
                 ),
               ),

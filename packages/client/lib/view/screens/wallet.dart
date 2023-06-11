@@ -32,8 +32,8 @@ class _WalletState extends State<Wallet> {
     final displayHeight = MediaQuery.of(context).size.height;
     final displayWidth = MediaQuery.of(context).size.width;
     var provider = Provider.of<BottomNavigationBarProvider>(context);
+    var contractModel = Provider.of<ContractModel>(context, listen: true);
     final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
-    // var contractModel = Provider.of<ContractModel>(context, listen: true);
 
     return Scaffold(
       body: SafeArea(
@@ -46,13 +46,14 @@ class _WalletState extends State<Wallet> {
                     isDeskTop ? (displayHeight * 0.01) : (displayHeight * 0.04),
               ),
               SizedBox(
-                height: displayHeight * 0.05,
+                height:
+                    isDeskTop ? (displayHeight * 0.06) : (displayHeight * 0.04),
                 child: Row(
                   children: [
                     Text(
                       'Wallet',
                       style: isDeskTop
-                          ? TextStyle(fontSize: 40)
+                          ? const TextStyle(fontSize: 50)
                           : (Theme.of(context).textTheme.headlineSmall),
                     ),
                   ],
@@ -90,10 +91,9 @@ class _WalletState extends State<Wallet> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 1),
+                            padding: const EdgeInsets.symmetric(vertical: 1),
                             child: Text(
-                              "4234324234",
-                              // contractModel.account,
+                              contractModel.account,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -114,7 +114,7 @@ class _WalletState extends State<Wallet> {
                           context: context,
                           builder: (_) => QRCode(
                               qrImage: QrImage(
-                            data: "2342432424",
+                            data: contractModel.account,
                             size: 200,
                           )),
                         );
@@ -167,7 +167,7 @@ class _WalletState extends State<Wallet> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Row(
@@ -186,13 +186,12 @@ class _WalletState extends State<Wallet> {
                                       child: DropdownButton2(
                                         buttonWidth: 20,
                                         buttonHeight: 20,
-                                        customButton: Container(
-                                            child: Row(
+                                        customButton: Row(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: displayWidth * 0.13,
                                               child: Column(
                                                 mainAxisAlignment:
@@ -208,7 +207,7 @@ class _WalletState extends State<Wallet> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             SizedBox(
@@ -220,7 +219,7 @@ class _WalletState extends State<Wallet> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 10,
                                                   ),
                                                   Text(
@@ -233,7 +232,7 @@ class _WalletState extends State<Wallet> {
                                                           isDeskTop ? 28 : 14,
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 5,
                                                   ),
                                                   Text(
@@ -246,13 +245,13 @@ class _WalletState extends State<Wallet> {
                                                           isDeskTop ? 24 : 12,
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 20,
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             SizedBox(
@@ -264,7 +263,7 @@ class _WalletState extends State<Wallet> {
                                               ),
                                             ),
                                           ],
-                                        )),
+                                        ),
                                         icon: Icon(
                                           Icons.arrow_drop_down,
                                           size: 30,
@@ -288,7 +287,7 @@ class _WalletState extends State<Wallet> {
                                                   child: Image.asset(
                                                       value.imagePath),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                                 Text(value.symbol)
@@ -302,33 +301,30 @@ class _WalletState extends State<Wallet> {
                                   SizedBox(
                                     width: displayWidth * 0.05,
                                   ),
-                                  Container(
-                                    child: SizedBox(
-                                      height: displayHeight * 0.08,
-                                      width: displayWidth * 0.37,
-                                      child: ElevatedButton(
-                                        onPressed: () async {
-                                          // await contractModel.sendTransaction(
-                                          //   dotenv.env["SWAP_CONTRACT_NAME"]!,
-                                          //   dotenv
-                                          //       .env["SWAP_CONTRACT_ADDRESS"]!,
-                                          //   "distributeToken",
-                                          //   [
-                                          //     EthereumAddress.fromHex(
-                                          //         dropdownValue.address),
-                                          //     BigInt.from(100),
-                                          //     EthereumAddress.fromHex(
-                                          //         contractModel.account),
-                                          //   ],
-                                          // );
-                                        },
-                                        child: Text(
-                                          'Get 100 ${dropdownValue.symbol}!',
-                                          style: GoogleFonts.patuaOne(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: isDeskTop ? 34 : 18,
-                                            color: Colors.black,
-                                          ),
+                                  SizedBox(
+                                    height: displayHeight * 0.08,
+                                    width: displayWidth * 0.37,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        await contractModel.sendTransaction(
+                                          dotenv.env["SWAP_CONTRACT_NAME"]!,
+                                          dotenv.env["SWAP_CONTRACT_ADDRESS"]!,
+                                          "distributeToken",
+                                          [
+                                            EthereumAddress.fromHex(
+                                                dropdownValue.address),
+                                            BigInt.from(100),
+                                            EthereumAddress.fromHex(
+                                                contractModel.account),
+                                          ],
+                                        );
+                                      },
+                                      child: Text(
+                                        'Get 100 ${dropdownValue.symbol}!',
+                                        style: GoogleFonts.patuaOne(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: isDeskTop ? 34 : 18,
+                                          color: Colors.black,
                                         ),
                                       ),
                                     ),
@@ -337,24 +333,22 @@ class _WalletState extends State<Wallet> {
                               ),
                             ],
                           ),
-                          Container(
-                            child: SizedBox(
-                              height: displayHeight * 0.1,
-                              width: isDeskTop
-                                  ? (displayWidth * 0.9)
-                                  : (displayWidth * 0.7),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, '/signIn');
-                                },
-                                child: Text(
-                                  'Disconnect',
-                                  style: GoogleFonts.patuaOne(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 27,
-                                    color: Colors.black,
-                                  ),
+                          SizedBox(
+                            height: displayHeight * 0.1,
+                            width: isDeskTop
+                                ? (displayWidth * 0.9)
+                                : (displayWidth * 0.7),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, '/signIn');
+                              },
+                              child: Text(
+                                'Disconnect',
+                                style: GoogleFonts.patuaOne(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 27,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),

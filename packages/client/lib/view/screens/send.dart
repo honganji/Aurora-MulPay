@@ -53,7 +53,7 @@ class _SendState extends State<Send> {
                     Text(
                       'Send',
                       style: isDeskTop
-                          ? TextStyle(fontSize: 50)
+                          ? const TextStyle(fontSize: 50)
                           : (Theme.of(context).textTheme.headlineSmall),
                     ),
                   ],
@@ -96,7 +96,7 @@ class _SendState extends State<Send> {
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(3),
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.grey,
                                       width: 1.0,
                                     ),
@@ -140,7 +140,7 @@ class _SendState extends State<Send> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(width: 18),
+                                  const SizedBox(width: 18),
                                   SizedBox(
                                     height: 22,
                                     width: 22,
@@ -178,7 +178,7 @@ class _SendState extends State<Send> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -200,10 +200,10 @@ class _SendState extends State<Send> {
                                       customButton: Container(
                                           child: Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: displayWidth * 0.13,
                                             child: Column(
                                               mainAxisAlignment:
@@ -219,7 +219,7 @@ class _SendState extends State<Send> {
                                               ],
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           SizedBox(
@@ -231,7 +231,7 @@ class _SendState extends State<Send> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 10,
                                                 ),
                                                 Text(
@@ -243,7 +243,7 @@ class _SendState extends State<Send> {
                                                         isDeskTop ? 28 : 14,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 5,
                                                 ),
                                                 Text(
@@ -255,16 +255,17 @@ class _SendState extends State<Send> {
                                                         isDeskTop ? 24 : 12,
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 20,
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           SizedBox(
+                                            height: isDeskTop ? 40 : 20,
                                             width: isDeskTop ? 40 : 20,
                                             child: SvgPicture.asset(
                                               "assets/triangle.svg",
@@ -296,7 +297,7 @@ class _SendState extends State<Send> {
                                                 child: Image.asset(
                                                     value.imagePath),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 10,
                                               ),
                                               Text(value.symbol)
@@ -332,7 +333,7 @@ class _SendState extends State<Send> {
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(3),
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.grey,
                                                 width: 1.0,
                                               ),
@@ -353,7 +354,7 @@ class _SendState extends State<Send> {
                                           controller: amountController,
                                         ),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         height: double.infinity,
                                         child: Column(
                                           mainAxisAlignment:
@@ -394,7 +395,7 @@ class _SendState extends State<Send> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Container(
@@ -410,14 +411,13 @@ class _SendState extends State<Send> {
                                 child: DropdownButton2(
                                   buttonWidth: 20,
                                   buttonHeight: 20,
-                                  customButton: Container(
-                                      child: Row(
+                                  customButton: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 5,
                                       ),
-                                      Container(
+                                      SizedBox(
                                         width: displayWidth * 0.13,
                                         child: Column(
                                           mainAxisAlignment:
@@ -433,7 +433,7 @@ class _SendState extends State<Send> {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 15,
                                       ),
                                       SizedBox(
@@ -445,7 +445,7 @@ class _SendState extends State<Send> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Text(
@@ -456,7 +456,7 @@ class _SendState extends State<Send> {
                                                 fontSize: isDeskTop ? 28 : 14,
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             Text(
@@ -467,13 +467,13 @@ class _SendState extends State<Send> {
                                                 fontSize: isDeskTop ? 24 : 12,
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 20,
                                             ),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 70,
                                       ),
                                       SizedBox(
@@ -485,7 +485,7 @@ class _SendState extends State<Send> {
                                         ),
                                       ),
                                     ],
-                                  )),
+                                  ),
                                   icon: Icon(
                                     Icons.arrow_drop_down,
                                     size: 30,
@@ -507,7 +507,7 @@ class _SendState extends State<Send> {
                                             width: 30,
                                             child: Image.asset(value.imagePath),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Text(value.symbol)
@@ -525,7 +525,7 @@ class _SendState extends State<Send> {
                           child: SizedBox(
                             height: displayHeight * 0.1,
                             width: isDeskTop
-                                ? (displayWidth * 0.8)
+                                ? (displayWidth * 0.9)
                                 : (displayWidth * 0.7),
                             child: ElevatedButton(
                               onPressed: () async {

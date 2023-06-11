@@ -50,7 +50,7 @@ Widget Coins(double displayWidth, displayHeight, String imagePath, symbol, name,
             ),
           ],
         ),
-        Expanded(
+        const Expanded(
           child: SizedBox(),
         ),
         SizedBox(
@@ -60,14 +60,14 @@ Widget Coins(double displayWidth, displayHeight, String imagePath, symbol, name,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${depo} ${symbol}',
+                '$depo $symbol',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: isDeskTop ? 20 : 13,
                 ),
               ),
               Text(
-                '${value} ETH',
+                '$value ETH',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

@@ -27,8 +27,9 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayHeight = MediaQuery.of(context).size.height;
     final displayWidth = MediaQuery.of(context).size.width;
-    final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
     var provider = Provider.of<BottomNavigationBarProvider>(context);
+    final isDeskTop = ResponsiveBreakpoints.of(context).largerThan(MOBILE);
+
     return Scaffold(
       body: SafeArea(
         child: SizedBox.expand(
